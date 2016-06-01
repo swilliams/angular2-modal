@@ -5,7 +5,7 @@
     npm install angular2-modal --save
 ```
 
-#### Bootstrap you application
+#### Bootstrap your application
 The important part here is to register `MODAL_BROWSER_PROVIDERS`
 ```ts
 import {provide} from '@angular/core';
@@ -20,7 +20,7 @@ import {App} from './app/app';
 function main() {
     return bootstrap(App, [
         ...MODAL_BROWSER_PROVIDERS
-        // you'r app providers here...
+        // your app providers here...
     ])
         .catch(err => console.error(err));
 }
@@ -38,7 +38,7 @@ import {Modal, BS_MODAL_PROVIDERS} from 'angular2-modal/plugins/bootstrap';
  * Top Level Component
  */
 @Component({
-    selector: 'app', 
+    selector: 'app',
     viewProviders: [ ...BS_MODAL_PROVIDERS ],
     template: `Hello World`
 })
@@ -54,11 +54,11 @@ In this example, we use the `bootstrap` plugin.
 We import `Modal` and `BS_MODAL_PROVIDERS` from the `bootstrap` plugin.
 `Modal` is imported for DI & annotation, `BS_MODAL_PROVIDERS` holds everything we need to use `angular2-modal`.  
 From here on, all ancestors of our root component have access to `Modal` via DI.
-  
+
 In the constructor we set the default view container, this is done once for the whole app.
 Why?  
 
-  * A modal element does not exist until requested, the element added on demand. 
+  * A modal element does not exist until requested, the element added on demand.
   * In `angular` adding components requires a logical UI parent.
 
 The default view container serves as a logical UI parent for our modal.  
@@ -77,7 +77,7 @@ import {Modal, BS_MODAL_PROVIDERS} from 'angular2-modal/plugins/bootstrap';
  * Top Level Component
  */
 @Component({
-    selector: 'app', 
+    selector: 'app',
     viewProviders: [ ...BS_MODAL_PROVIDERS ],
     template: `Hello World`
 })
@@ -85,7 +85,7 @@ export class App {
     constructor(public modal: Modal, viewContainer: ViewContainerRef) {
         modal.defaultViewContainer = viewContainer;
     }
-    
+
     openAlert() {
         return this.modal.alert()
                 .size('lg')
@@ -98,11 +98,11 @@ export class App {
 ```
 
 This is a demonstration of opening a modal using a drop in.
-There are 3 drop in's: 
+There are 3 drop in's:
   * Alert
-  * Propmt
+  * Prompt
   * Confirm
-  
+
 This is true for every plugin, however some might not implemented all of them, the built in plugins support all 3 drop ins.
 Plugins will probably implement different API for drop in's, here is an example for VEX:
 
@@ -118,7 +118,7 @@ import {
  * Top Level Component
  */
 @Component({
-    selector: 'app', 
+    selector: 'app',
     viewProviders: [ ...VEX_MODAL_PROVIDERS ],
     template: `Hello World`
 })
@@ -126,7 +126,7 @@ export class App {
     constructor(public modal: Modal, viewContainer: ViewContainerRef) {
         modal.defaultViewContainer = viewContainer;
     }
-    
+
     openAlert() {
         return this.modal.prompt()
            .className('wireframe')
@@ -141,5 +141,3 @@ export class App {
 #### Opening a modal using the open() method
 Drop in's are nice for quick interaction with modals, however in some cases we need more control.  
 For this we can use the `open()` method, which is used by all drop in's internally.
-
-
